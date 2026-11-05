@@ -82,6 +82,9 @@ KI_Qualitaetspruefung_Labor/
 │   └── test/
 │       ├── gebrochen/
 │       └── intakt/
+|    └── train/
+|       ├── gebrochen/
+|       └── intakt/
 ├── models/
 │   └── quality_model.keras
 ├── results/
@@ -105,7 +108,7 @@ KI_Qualitaetspruefung_Labor/
 - `results/` ist für gespeicherte Auswertungsergebnisse vorgesehen.
 - `src/` enthält die GUI und die zugehörigen Python-Module.
 
-Die Ordner `data/raw/`, `data/train/` und `data/validation/` sind in dieser Laborversion nicht enthalten. Für das Training über die GUI wählen die Studierenden ihre Bildordner selbst aus. Die Trainingsfunktion erstellt daraus die Trainings- und Validierungsaufteilung.
+Die Ordner `data/train/` soll in finale Laborversion nicht enthalten. Für das Training über die GUI wählen die Studierenden ihre Bildordner selbst aus. Die Trainingsfunktion erstellt daraus die Trainings- und Validierungsaufteilung.
 
 `prepare_dataset.py` ist ein separates Hilfsskript, das Rohdaten unter `data/raw/` erwartet. Es wird für den regulären Trainingsablauf über die GUI nicht benötigt.
 
