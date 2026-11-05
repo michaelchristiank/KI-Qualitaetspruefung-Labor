@@ -16,13 +16,3 @@ env/
 .DS_Store
 Thumbs.db
 *.tmp
-
-# Results generated during experiments
-# Uncomment if you do not want to upload results:
-# results/*
-
-# Dataset exclusions (optional)
-# Uncomment if you want to keep datasets out of GitHub:
-# data/raw/
-# data/train/
-# data/validation/
