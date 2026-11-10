@@ -169,6 +169,35 @@ Nach erfolgreicher Installation kann die Anwendung lokal ausgeführt werden, ohn
 
 Für eine Installation auf HAW-Labor-PCs ohne Internetzugang müssen die benötigten Abhängigkeiten vorab bereitgestellt oder die Anwendung entsprechend paketiert werden.
 
+## Installation unter Mac
+
+Öffne Terminal oder das Terminal in VS Code im Projekt-Hauptordner.
+
+### 1. Virtuelle Umgebung erstellen
+
+```bash
+python3 -m venv .venv
+```
+
+### 2. Virtuelle Umgebung aktivieren
+
+```bash
+source .venv/bin/activate
+```
+
+Upgrade pip:
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+### 3. Anwendung starten
+
+```bash
+python3 src/ui_prototype.py
+```
+
 ## Verwendung im Labor
 
 1. Die Anwendung starten.
