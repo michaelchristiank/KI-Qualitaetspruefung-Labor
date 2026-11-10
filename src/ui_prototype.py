@@ -359,9 +359,19 @@ class QualityUiPrototype:
                 self.confusion_matrix_values[(true_index, predicted_index)].configure(
                     text=str(matrix[true_index][predicted_index])
                 )
-        for key, label in self.metric_value_labels.items():
+        for key in ("accuracy", "sensitivity", "specificity"):
+            label = self.metric_value_labels[key]
             value = metrics[key]
             label.configure(text="N/A" if value is None else f"{float(value) * 100:.2f}%")
+        # Gebrochen is the positive class (matrix index 0), matching Sensitivität.
+        tp, fn = matrix[0][0], matrix[0][1]
+        fp, tn = matrix[1][0], matrix[1][1]
+        for key, numerator, denominator in (
+            ("fpr", fp, tn + fp),
+            ("fnr", fn, tp + fn),
+        ):
+            value = "-- %" if denominator == 0 else f"{numerator / denominator * 100:.2f}%"
+            self.metric_value_labels[key].configure(text=value)
         for key, label in self.rate_value_labels.items():
             label.configure(text=self._format_evaluation_metric(metrics[key]))
         for key, label in self.reference_count_labels.items():
@@ -1029,14 +1039,18 @@ class QualityUiPrototype:
 
         metrics_row = ctk.CTkFrame(evaluation, fg_color="transparent")
         metrics_row.grid(row=4, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 10))
-        metrics_row.grid_columnconfigure((0, 1, 2), weight=1, uniform="evaluation_metric_cards")
+        metrics_row.grid_columnconfigure(tuple(range(5)), weight=1, uniform="evaluation_metric_cards")
         metric_specs = (
             ("accuracy", "Genauigkeit"),
             ("sensitivity", "Sensitivit\u00e4t"),
             ("specificity", "Spezifit\u00e4t"),
+            ("fpr", "False Positive Rate (FPR)"),
+            ("fnr", "False Negative Rate (FNR)"),
         )
+        metric_cards = []
         for column, (key, title) in enumerate(metric_specs):
             metric = self._card(metrics_row)
+            metric_cards.append(metric)
             metric.grid(row=0, column=column, sticky="ew", padx=4, pady=2)
             ctk.CTkLabel(
                 metric,
@@ -1052,6 +1066,16 @@ class QualityUiPrototype:
             )
             value_label.pack(anchor="w", padx=13, pady=(0, 9))
             self.metric_value_labels[key] = value_label
+
+        def arrange_metric_cards(event: tk.Event) -> None:
+            columns = 5 if event.width >= 850 else 3
+            for column in range(5):
+                metrics_row.grid_columnconfigure(column, weight=1, uniform="evaluation_metric_cards")
+            for index, metric in enumerate(metric_cards):
+                row, column = divmod(index, columns)
+                metric.grid(row=row, column=column, sticky="ew", padx=4, pady=2)
+
+        metrics_row.bind("<Configure>", arrange_metric_cards)
 
     def _selection_row(self, parent: ctk.CTkFrame, row: int, label: str, button_text: str) -> None:
         ctk.CTkLabel(
