@@ -1,5 +1,5 @@
 
-# KI-basierte Qualitätssicherung
+# KI-basierte Qualitätsprüfung
 
 Offlinefähige Desktop-Anwendung zur KI-gestützten visuellen Qualitätsprüfung von Kichererbsen. Das Projekt wurde im Rahmen einer Studienarbeit im Studiengang Maschinenbau und Produktionstechnik/-management an der HAW Hamburg entwickelt.
 
@@ -67,8 +67,6 @@ Testbilder dürfen nicht gleichzeitig zum Trainieren oder zur Validierung verwen
 Nach einer erfolgreichen Evaluation können die Auswertungsergebnisse als CSV- oder TXT-Bericht gespeichert werden.
 
 Der Export der Evaluationsberichte ist in der aktuellen GUI an die vorgesehene Sitzungs-/Referenzfreigabe gebunden.
-
-Das trainierte Modell wird bereits beim Training am ausgewählten Speicherort gespeichert. Der separate Button **Trainiertes Modell** im Tab **Export** ist in der aktuellen Version noch nicht implementiert.
 
 ## Projektstruktur
 
